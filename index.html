@@ -15,56 +15,37 @@
     renderer.setSize( innerWidth, innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    const boxObjectOne = new THREE.Mesh(
-      new THREE.BoxGeometry( 2,2,2 ),
-      new THREE.MeshLambertMaterial({color:0xF06565})
-    );
+    const boxObjectOne = buildBox(0xF06565);
     boxObjectOne.position.x = +7;
     boxObjectOne.position.z = -10; 
     scene.add(boxObjectOne);
 
-    const boxObjectTwo = new THREE.Mesh(
-      new THREE.BoxGeometry( 2,2,2 ),
-      new THREE.MeshLambertMaterial({color:0xF06000})
-    );
+    const boxObjectTwo = buildBox(0xF06000);
     boxObjectTwo.position.x = -7;
     boxObjectTwo.position.z = -10;
     scene.add(boxObjectTwo);
 
-    const sphereObjectOne = new THREE.Mesh(
-      new THREE.SphereGeometry( 2, 32, 32),
-      new THREE.MeshLambertMaterial({color:0xF06000})
-    );
+    const sphereObjectOne = buildSphere(0xF06000);
     sphereObjectOne.position.x = -5;
     sphereObjectOne.position.y = 5;
     sphereObjectOne.position.z = -10;
     scene.add(sphereObjectOne);
 
-    const sphereObjectTwo = new THREE.Mesh(
-      new THREE.SphereGeometry( 2, 32, 32),
-      new THREE.MeshLambertMaterial({color:0x00FF00})
-    );
+    const sphereObjectTwo = buildSphere(0x00FF00);
     sphereObjectTwo.position.x = 5;
     sphereObjectTwo.position.y = -5;
     sphereObjectTwo.position.z = -10;
     scene.add(sphereObjectTwo);
 
-    ///And a blue plane behind it
-    const blueMaterial = new THREE.MeshLambertMaterial({color:0x7074FF})
-    const plane = new THREE.PlaneBufferGeometry( innerWidth, innerHeight );
-    const planeObject = new THREE.Mesh(plane,blueMaterial);
-    planeObject.position.z = -15;
-    scene.add(planeObject);
-
-    const lightOne = new THREE.PointLight( 0x00FF00, 1, 0 );
+    const lightOne = buildLight(0x00FF00);
     lightOne.position.set( 0, 0, -10 );
     scene.add( lightOne );
 
-    const lightTwo = new THREE.PointLight( 0x0000FF, 1, 0 );
+    const lightTwo = buildLight(0x0000FF);
     lightTwo.position.set( -9, 0, -6 );
     scene.add( lightTwo );
 
-    const lightThree = new THREE.PointLight( 0xFF0000, 1, 0 );
+    const lightThree = buildLight(0xFF0000);
     lightThree.position.set( +9, 0, -6 );
     scene.add( lightThree );
 
@@ -94,6 +75,24 @@
     }
 
     render();
+
+    function buildSphere(color) {
+      return new THREE.Mesh(
+        new THREE.SphereGeometry(2, 32, 32),
+        new THREE.MeshLambertMaterial({color})
+      );
+    }
+
+    function buildBox(color) {
+      return new THREE.Mesh(
+        new THREE.BoxGeometry( 2,2,2 ),
+        new THREE.MeshLambertMaterial({color})
+      );
+    }
+
+    function buildLight(color) {
+      return new THREE.PointLight(color, 1, 0);
+    }
     </script>
   </body>
 </html>
